@@ -577,17 +577,17 @@
 
       <ul class="nav-links">
         <li><button data-page="home">Home</button></li>
-        <li><button data-page="BrowseCakes">Browse Cakes</button></li>
+        <li><button data-page="browse">Browse Cakes</button></li>
         <li><button data-page="customize" class="active">Customize</button></li>
       </ul>
 
       <div class="nav-actions">
-        <button class="icon-btn" aria-label="Cart">
+        <button class="icon-btn" aria-label="Cart" data-page="cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
         </button>
 
-        <button class="signin-btn">
+        <button class="signin-btn" data-page="signin">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Sign In
         </button>
@@ -602,7 +602,7 @@
       <button data-page="home">Home</button>
       <button data-page="browse">Browse Cakes</button>
       <button data-page="customize" class="active">Customize</button>
-      <button class="signin">Sign In / Register</button>
+      <button class="signin" data-page="signin">Sign In / Register</button>
     </div>
   </nav>
 
@@ -683,16 +683,46 @@
   </footer>
 
 <script>
-  /* ---------- NAVBAR BEHAVIOR ---------- */
+  /* ---------- PAGE NAVIGATION ---------- */
+  // Maps each data-page key to the actual filename in your project.
+  // Edit these paths if any of your files live in a subfolder.
+  const PAGE_MAP = {
+    home: 'index.html',
+    browse: 'BrowseCakes.html',
+    customize: 'CustomizeCake.html',
+    signin: 'AuthPage.html',
+    cart: 'OrderPage.html',
+    order: 'OrderPage.html',
+    tracking: 'OrderTracking.html',
+    payment: 'PaymentPage.html',
+    profile: 'UserProfile.html',
+  };
+
+  function goToPage(pageKey) {
+    const file = PAGE_MAP[pageKey];
+    if (file) {
+      window.location.href = file;
+    } else {
+      console.warn('No page mapped for data-page="' + pageKey + '"');
+    }
+  }
+
   function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
+  /* ---------- NAVBAR BEHAVIOR ---------- */
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileMenu = document.getElementById('mobileMenu');
   mobileToggle.addEventListener('click', () => {
     mobileMenu.classList.toggle('open');
   });
-  document.querySelectorAll('.mobile-menu button[data-page], .nav-links button[data-page], .footer-col button[data-page]')
-    .forEach(btn => btn.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Wire up every button that has a data-page attribute (navbar, mobile menu, footer, cart icon, sign in)
+  document.querySelectorAll('[data-page]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      goToPage(btn.dataset.page);
+    });
+  });
 
   /* ---------- CUSTOMIZE CAKE DATA ---------- */
   const SIZES = [
