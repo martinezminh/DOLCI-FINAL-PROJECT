@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dolci — Our Sweet Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: { DEFAULT: '#C94070', foreground: '#ffffff' },
+          secondary: { DEFAULT: '#FCE4EF', foreground: '#2E1E22' },
+          foreground: '#2E1E22',
+          background: '#ffffff',
+          muted: { DEFAULT: '#FBD8E3', foreground: '#8B6672' },
+        },
+        fontFamily: { display: ['"Playfair Display"', 'serif'] },
+      },
+    },
+  };
+</script>
+</head>
+<body class="bg-white text-[#2E1E22]">
+
+<!-- ===================== Navbar component ===================== -->
+<nav class="sticky top-0 z-50 w-full bg-[#fff8f9]/90 backdrop-blur-md border-b border-[#f9c4d4]">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center gap-8">
+    <a href="index.html" class="text-2xl font-bold text-[#c95c7a] mr-auto select-none font-display">🎀 Dolci</a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html" class="text-sm font-medium transition-colors duration-200 text-[#6b4352] hover:text-[#c95c7a]">Home</a></li>
+      <li><a href="BrowseCakes.html" class="text-sm font-medium transition-colors duration-200 text-[#c95c7a]">Browse Cakes</a></li>
+      <li><a href="CustomizeCake.html" class="text-sm font-medium transition-colors duration-200 text-[#6b4352] hover:text-[#c95c7a]">Customize</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <button onclick="viewCart()" class="relative p-2 text-[#c95c7a] hover:bg-[#fde8ef] rounded-full transition-colors" aria-label="View cart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span data-cart-count class="hidden absolute -top-0.5 -right-0.5 w-5 h-5 bg-[#c95c7a] text-white text-xs rounded-full flex items-center justify-center">0</span>
+      </button>
+
+      <button onclick="goToAuth()" class="hidden md:inline-flex items-center gap-1.5 px-5 py-2 bg-[#c95c7a] text-white rounded-full text-sm font-semibold hover:bg-[#b54d6a] hover:-translate-y-0.5 transition-all shadow-lg shadow-[#c95c7a]/20">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Sign In
+      </button>
+
+      <button class="md:hidden text-[#c95c7a] text-2xl p-2" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-[#fff8f9] border-t border-[#f9c4d4] px-6 py-4 flex flex-col gap-4">
+    <a href="index.html" class="text-left text-sm font-medium py-1 text-[#6b4352]">Home</a>
+    <a href="BrowseCakes.html" class="text-left text-sm font-medium py-1 text-[#c95c7a]">Browse Cakes</a>
+    <a href="CustomizeCake.html" class="text-left text-sm font-medium py-1 text-[#6b4352]">Customize</a>
+    <button onclick="goToAuth()" class="text-left text-sm text-[#c95c7a] font-semibold py-1">Sign In / Register</button>
+  </div>
+</nav>
+<!-- ===================== /Navbar component ===================== -->
+
+<header class="bg-gradient-to-br from-[#FBD8E3] via-[#fef0f4] to-white py-24">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <p class="text-xs uppercase tracking-[4px] text-[#D9718F] font-bold mb-3">Ready to order</p>
+    <h1 class="font-display text-5xl md:text-6xl text-[#2E1E22] mb-4">Our Sweet Menu</h1>
+    <p class="text-sm md:text-base text-[#8B6672] max-w-2xl mx-auto">Browse flavors, sizes, and prices before you build your dream cake.</p>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+  <section id="menu-pricing" class="space-y-8">
+    <div class="text-center">
+      <span class="text-xs uppercase tracking-[4px] text-[#D9718F] font-bold">Sets</span>
+      <h2 class="font-display text-4xl text-[#2E1E22]">Sets</h2>
+    </div>
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="rounded-[2rem] bg-white p-8 border border-[#FBD8E3] shadow-sm">
+        <h3 class="font-display text-2xl text-[#2E1E22] mb-6">Cakes</h3>
+        <dl class="space-y-5 text-[#8B6672] text-sm">
+          <div class="flex justify-between gap-4"><dt>Midi-ish Tall + 12s cupcakes</dt><dd class="font-semibold text-[#BE5779]">₱1,399</dd></div>
+          <div class="flex justify-between gap-4"><dt>Midi-ish Tall + 12s cupcakes + number cake</dt><dd class="font-semibold text-[#BE5779]">₱1,999</dd></div>
+          <div class="flex justify-between gap-4"><dt>Supersized Tall + 12s cupcakes</dt><dd class="font-semibold text-[#BE5779]">₱2,099</dd></div>
+          <div class="flex justify-between gap-4"><dt>Supersized Tall + 12s cupcakes + number cake</dt><dd class="font-semibold text-[#BE5779]">₱2,799</dd></div>
+        </dl>
+      </div>
+      <div class="rounded-[2rem] bg-white p-8 border border-[#FBD8E3] shadow-sm">
+        <h3 class="font-display text-2xl text-[#2E1E22] mb-6">2 Tier</h3>
+        <dl class="space-y-5 text-[#8B6672] text-sm">
+          <div class="flex justify-between gap-4"><dt>Mini 2 Tier (4” &amp; 6”) + 12s Cupcake</dt><dd class="font-semibold text-[#BE5779]">₱1,599</dd></div>
+          <div class="flex justify-between gap-4"><dt>Regular 2 Tier (6” &amp; 8”) + 12s cupcake</dt><dd class="font-semibold text-[#BE5779]">₱2,999</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-8">
+    <div class="text-center">
+      <span class="text-xs uppercase tracking-[4px] text-[#D9718F] font-bold">Menu</span>
+      <h2 class="font-display text-4xl text-[#2E1E22]">Menu</h2>
+    </div>
+    <div id="ready-to-order" class="grid gap-8 lg:grid-cols-2">
+      <div class="rounded-[2rem] bg-white p-8 border border-[#FBD8E3] shadow-sm">
+        <h3 class="font-display text-2xl text-[#2E1E22] mb-6">Cakes</h3>
+        <div class="grid gap-4 text-sm text-[#8B6672]">
+          <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 text-xs uppercase tracking-[2px] text-[#2E1E22] font-semibold">
+            <span>Item</span><span class="text-right">Regular</span><span class="text-right">Tall</span>
+          </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('bento')">
+            <span class="min-w-0">Bento</span><span class="text-right font-semibold">₱270</span><span class="text-right font-semibold">₱400</span>
+          </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('mini-sh')">
+            <span class="min-w-0">Mini-sh (5”)</span><span class="text-right font-semibold">₱450</span><span class="text-right font-semibold">₱700</span>
+          </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('midi-ish')">
+            <span class="min-w-0">Midi-ish (6”)</span><span class="text-right font-semibold">₱790</span><span class="text-right font-semibold">₱1,090</span>
+          </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('supersized')">
+            <span class="min-w-0">Supersized (8”)</span><span class="text-right font-semibold">₱1,050</span><span class="text-right font-semibold">₱1,300</span>
+          </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('number-cake')">
+            <span class="min-w-0">Number cake</span><span class="text-right font-semibold">₱450</span><span class="text-right text-transparent">-</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div class="rounded-[2rem] bg-white p-8 border border-[#FBD8E3] shadow-sm">
+          <h3 class="font-display text-2xl text-[#2E1E22] mb-6">Desserts</h3>
+          <div class="grid gap-4 text-sm text-[#8B6672]">
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 text-xs uppercase tracking-[2px] text-[#2E1E22] font-semibold">
+              <span>Item</span><span class="text-right">6s</span><span class="text-right">12s</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('cupcakes')">
+              <span class="min-w-0">Cupcakes</span><span class="text-right font-semibold">₱180</span><span class="text-right font-semibold">₱360</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('brownies')">
+              <span class="min-w-0">Brownies</span><span class="text-right font-semibold">₱180</span><span class="text-right font-semibold">₱350</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('mamon')">
+              <span class="min-w-0">Mamon</span><span class="text-right font-semibold">₱210</span><span class="text-right font-semibold">₱420</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('chocolate-crinkles')">
+              <span class="min-w-0">Chocolate crinkles</span><span class="text-right font-semibold">₱150</span><span class="text-right font-semibold">₱300</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('cake-pops')">
+              <span class="min-w-0">Cake pops</span><span class="text-right font-semibold">₱180</span><span class="text-right font-semibold">₱380</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('cheesecake-bites')">
+              <span class="min-w-0">Cheesecake bites</span><span class="text-right font-semibold">₱240</span><span class="text-right font-semibold">₱480</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-[2rem] bg-white p-8 border border-[#FBD8E3] shadow-sm">
+          <h3 class="font-display text-2xl text-[#2E1E22] mb-6">Cheesecakes</h3>
+          <div class="grid gap-4 text-sm text-[#8B6672]">
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 text-xs uppercase tracking-[2px] text-[#2E1E22] font-semibold">
+              <span>Flavor</span><span class="text-right">4”</span><span class="text-right">6”</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('blueberry-cheesecake')">
+              <span class="min-w-0">Blueberry Cheesecake</span><span class="text-right font-semibold">₱315</span><span class="text-right font-semibold">₱475</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('biscoff-cheesecake')">
+              <span class="min-w-0">Biscoff Cheesecake</span><span class="text-right font-semibold">₱325</span><span class="text-right font-semibold">₱490</span>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr)_84px_84px] items-center gap-4 rounded-xl px-2 py-2 hover:bg-[#FBD8E3]/70 cursor-pointer" onclick="openOrderCard('oreo-cheesecake')">
+              <span class="min-w-0">Oreo Cheesecake</span><span class="text-right font-semibold">₱295</span><span class="text-right font-semibold">₱400</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="text-center space-y-4">
+    <p class="text-sm font-semibold text-[#8B6672]">Price may vary according to the design. Prices shown are base price!</p>
+  </section>
+
+  <section class="rounded-[2rem] border border-[#FBD8E3] bg-white p-8 shadow-sm">
+    <div class="text-center">
+      <p class="text-xs font-semibold uppercase tracking-[4px] text-[#D9718F]">Choose your path</p>
+      <h2 class="mt-3 font-display text-3xl text-[#2E1E22]">Ready to order or ready to customize?</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-sm text-[#8B6672]">Browse the menu first, then choose the path that fits your order.</p>
+    </div>
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <div class="rounded-[1.5rem] bg-[#FBD8E3] p-6">
+        <p class="text-xs font-semibold uppercase tracking-[3px] text-[#BE5779]">Ready to Order</p>
+        <h3 class="mt-3 font-display text-2xl text-[#2E1E22]">Quick treats, ready to go</h3>
+        <p class="mt-3 text-sm text-[#8B6672]">Perfect for brownies, cupcakes, cheesecakes, and other pre-made favorites.</p>
+        <div class="mt-5 flex flex-wrap justify-center gap-3">
+          <button type="button" onclick="openOrderCard()" class="inline-flex items-center justify-center rounded-full bg-[#BE5779] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#BE5779]/20 hover:bg-[#b54d6a]">Choose Dessert</button>
+        </div>
+      </div>
+      <div class="rounded-[1.5rem] bg-[#FBD8E3] p-6">
+        <p class="text-xs font-semibold uppercase tracking-[3px] text-[#BE5779]">Customizable</p>
+        <h3 class="mt-3 font-display text-2xl text-[#2E1E22]">Build your dream cake</h3>
+        <p class="mt-3 text-sm text-[#8B6672]">Choose sizes, flavors, colors, and finishing touches for a cake made just for you.</p>
+        <div class="mt-5 flex flex-wrap justify-center gap-3">
+          <a href="CustomizeCake.html" class="inline-flex items-center justify-center rounded-full bg-[#BE5779] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#BE5779]/20 hover:bg-[#b54d6a]">Customize</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="browse-toast" class="hidden fixed left-1/2 bottom-6 -translate-x-1/2 bg-[#2E1E22] text-white px-4 py-3 rounded-full shadow-[0_12px_24px_rgba(45,26,32,0.2)] z-[60]" role="status" aria-live="polite"></div>
+
+<div id="order-modal" class="hidden fixed inset-0 z-[70] flex items-center justify-center bg-black/55 px-4" onclick="closeOrderCard(event)">
+  <div class="w-full max-w-lg rounded-[2rem] border border-[#FBD8E3] bg-white p-6 shadow-2xl" onclick="event.stopPropagation()">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[3px] text-[#D9718F]">Your Order</p>
+        <h3 class="mt-2 font-display text-2xl text-[#2E1E22]">Build your dessert order</h3>
+      </div>
+      <button type="button" onclick="closeOrderCard()" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#FBD8E3] text-lg text-[#BE5779]" aria-label="Close order card">×</button>
+    </div>
+    <div class="mt-6 space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-[#2E1E22]">Dessert</label>
+        <select id="modal-product-select" onchange="onProductChange()" class="mt-2 w-full rounded-full border border-[#E8A9BE] bg-white px-4 py-2.5 text-sm"></select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-[#2E1E22]">Size / Pack</label>
+        <select id="modal-size-select" onchange="onSizeChange()" class="mt-2 w-full rounded-full border border-[#E8A9BE] bg-white px-4 py-2.5 text-sm"></select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-[#2E1E22]">Quantity</label>
+        <div class="mt-2 flex items-center rounded-full border border-[#E8A9BE] bg-white p-1">
+          <button type="button" onclick="stepQuantity(-1)" class="h-10 w-10 rounded-full text-xl text-[#BE5779] hover:bg-[#FBD8E3]">−</button>
+          <input id="modal-quantity" type="number" min="1" value="1" onchange="setQuantity(this.value)" class="w-full border-0 bg-transparent text-center text-sm font-semibold focus:outline-none" />
+          <button type="button" onclick="stepQuantity(1)" class="h-10 w-10 rounded-full text-xl text-[#BE5779] hover:bg-[#FBD8E3]">+</button>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-[#FBD8E3] pt-5">
+        <button type="button" onclick="addToOrder()" class="inline-flex w-full items-center justify-center rounded-full bg-[#BE5779] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#BE5779]/20 hover:bg-[#b54d6a]">Add to Order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== Footer component ===================== -->
+<footer id="contact" class="bg-[#2b171d] text-white/70 pt-14 pb-0">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-12 pb-12 border-b border-white/10">
+    <div class="flex-1">
+      <h3 class="font-display text-xl text-white mb-2">🎀 Dolci</h3>
+      <p class="text-xs opacity-60">A taste of sweet.</p>
+    </div>
+    <div class="flex gap-14 flex-wrap">
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Shop</h4>
+        <ul class="space-y-2">
+          <li><a href="BrowseCakes.html" class="text-xs font-normal text-white/70 hover:text-pink-300 transition-colors">Cakes</a></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Cookies</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Gift Boxes</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Info</h4>
+        <ul class="space-y-2">
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">About Us</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Blog</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">FAQ</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Connect</h4>
+        <ul class="space-y-2">
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Instagram</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Facebook</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">TikTok</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 py-5 text-center text-xs opacity-40">
+    © 2026 Dolci. Made with 🍓 and lots of butter.
+  </div>
+</footer>
+<!-- ===================== /Footer component ===================== -->
+
+<script src="app.js"></script>
+<script>
+  // ---- Navigation helpers (defined here so the navbar works even if ----
+  // ---- app.js doesn't define them, or loads in a different order    ----
+  function goToAuth() {
+    window.location.href = 'AuthPage.html';
+  }
+
+  function viewCart() {
+    window.location.href = 'OrderPage.html';
+  }
+
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) menu.classList.toggle('hidden');
+  }
+
+  // ---- Shared cart storage (used across all pages) ----
+  // If app.js already defines addCakeToCart, this will simply override it
+  // with a working version backed by localStorage.
+  const CART_KEY = 'dolciCart';
+
+  function getCart() {
+    try {
+      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartBadge();
+  }
+
+  function addCakeToCart(item) {
+    const cart = getCart();
+    cart.push({ ...item, addedAt: Date.now() });
+    saveCart(cart);
+  }
+
+  function updateCartBadge() {
+    const badge = document.querySelector('[data-cart-count]');
+    if (!badge) return;
+    const count = getCart().length;
+    badge.textContent = count;
+    badge.classList.toggle('hidden', count === 0);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+  const products = [
+    { id: 'bento', name: 'Bento', sizeOptions: ['Regular', 'Tall'], sizePrices: { Regular: 270, Tall: 400 }, defaultQuantity: 1 },
+    { id: 'mini-sh', name: 'Mini-sh (5")', sizeOptions: ['Regular', 'Tall'], sizePrices: { Regular: 450, Tall: 700 }, defaultQuantity: 1 },
+    { id: 'midi-ish', name: 'Midi-ish (6")', sizeOptions: ['Regular', 'Tall'], sizePrices: { Regular: 790, Tall: 1090 }, defaultQuantity: 1 },
+    { id: 'supersized', name: 'Supersized (8")', sizeOptions: ['Regular', 'Tall'], sizePrices: { Regular: 1050, Tall: 1300 }, defaultQuantity: 1 },
+    { id: 'number-cake', name: 'Number cake', sizeOptions: ['Regular'], sizePrices: { Regular: 450 }, defaultQuantity: 1 },
+    { id: 'cupcakes', name: 'Cupcakes', sizeOptions: ['6s', '12s'], sizePrices: { '6s': 180, '12s': 360 }, defaultQuantity: 1 },
+    { id: 'brownies', name: 'Brownies', sizeOptions: ['6s', '12s'], sizePrices: { '6s': 180, '12s': 350 }, defaultQuantity: 1 },
+    { id: 'mamon', name: 'Mamon', sizeOptions: ['6s', '12s'], sizePrices: { '6s': 210, '12s': 420 }, defaultQuantity: 1 },
+    { id: 'chocolate-crinkles', name: 'Chocolate crinkles', sizeOptions: ['6s', '12s'], sizePrices: { '6s': 150, '12s': 300 }, defaultQuantity: 1 },
+    { id: 'cake-pops', name: 'Cake pops', sizeOptions: ['6s', '12s'], sizePrices: { '6s': 180, '12s': 380 }, defaultQuantity: 1 },
+    { id: 'cheesecake-bites', name: 'Cheesecake bites', sizeOptions: ['6s', '12s'], sizePrices: { '6s': 240, '12s': 480 }, defaultQuantity: 1 },
+    { id: 'blueberry-cheesecake', name: 'Blueberry Cheesecake', sizeOptions: ['4"', '6"'], sizePrices: { '4"': 315, '6"': 475 }, defaultQuantity: 1 },
+    { id: 'biscoff-cheesecake', name: 'Biscoff Cheesecake', sizeOptions: ['4"', '6"'], sizePrices: { '4"': 325, '6"': 490 }, defaultQuantity: 1 },
+    { id: 'oreo-cheesecake', name: 'Oreo Cheesecake', sizeOptions: ['4"', '6"'], sizePrices: { '4"': 295, '6"': 400 }, defaultQuantity: 1 },
+  ];
+
+  let selectedProduct = products[0];
+  let selectedSize = products[0].sizeOptions[0];
+  let quantity = 1;
+  let toastTimer = null;
+
+  function populateModalProducts() {
+    const select = document.getElementById('modal-product-select');
+    select.innerHTML = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+  }
+
+  function populateModalSizes() {
+    const select = document.getElementById('modal-size-select');
+    select.innerHTML = selectedProduct.sizeOptions.map(s => `<option value="${s}">${s}</option>`).join('');
+    select.value = selectedSize;
+  }
+
+  function openOrderCard(productId) {
+    selectedProduct = productId ? (products.find(p => p.id === productId) || products[0]) : products[0];
+    selectedSize = selectedProduct.sizeOptions[0];
+    quantity = selectedProduct.defaultQuantity;
+    populateModalProducts();
+    document.getElementById('modal-product-select').value = selectedProduct.id;
+    populateModalSizes();
+    document.getElementById('modal-quantity').value = quantity;
+    document.getElementById('order-modal').classList.remove('hidden');
+  }
+
+  function closeOrderCard(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('order-modal').classList.add('hidden');
+  }
+
+  function onProductChange() {
+    const id = document.getElementById('modal-product-select').value;
+    selectedProduct = products.find(p => p.id === id) || products[0];
+    selectedSize = selectedProduct.sizeOptions[0];
+    quantity = selectedProduct.defaultQuantity;
+    populateModalSizes();
+    document.getElementById('modal-quantity').value = quantity;
+  }
+
+  function onSizeChange() {
+    selectedSize = document.getElementById('modal-size-select').value;
+  }
+
+  function stepQuantity(delta) {
+    quantity = Math.max(1, quantity + delta);
+    document.getElementById('modal-quantity').value = quantity;
+  }
+
+  function setQuantity(val) {
+    quantity = Number(val) || 1;
+  }
+
+  function addToOrder() {
+    const price = selectedProduct.sizePrices[selectedSize] ?? 0;
+    addCakeToCart({ name: selectedProduct.name, size: selectedSize, price, quantity });
+
+    const toast = document.getElementById('browse-toast');
+    toast.textContent = `${selectedProduct.name} (${selectedSize}) x${quantity} added to order`;
+    toast.classList.remove('hidden');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.add('hidden'), 2200);
+
+    closeOrderCard();
+  }
+</script>
+</body>
+</html>

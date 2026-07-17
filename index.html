@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dolci — Handmade Cakes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: { DEFAULT: '#C94070', foreground: '#ffffff' },
+          secondary: { DEFAULT: '#FCE4EF', foreground: '#2E1E22' },
+          foreground: '#2E1E22',
+          background: '#ffffff',
+          muted: { DEFAULT: '#FBD8E3', foreground: '#8B6672' },
+        },
+        fontFamily: { display: ['"Playfair Display"', 'serif'] },
+      },
+    },
+  };
+</script>
+</head>
+<body class="bg-white text-foreground">
+
+<!-- ===================== Navbar component ===================== -->
+<nav class="sticky top-0 z-50 w-full bg-[#fff8f9]/90 backdrop-blur-md border-b border-[#f9c4d4]">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center gap-8">
+    <a href="index.html" class="text-2xl font-bold text-[#c95c7a] mr-auto select-none font-display">🎀 Dolci</a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html" class="text-sm font-medium transition-colors duration-200 text-[#c95c7a]">Home</a></li>
+      <li><a href="BrowseCakes.html" class="text-sm font-medium transition-colors duration-200 text-[#6b4352] hover:text-[#c95c7a]">Browse Cakes</a></li>
+      <li><a href="CustomizeCake.html" class="text-sm font-medium transition-colors duration-200 text-[#6b4352] hover:text-[#c95c7a]">Customize</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <button onclick="viewCart()" class="relative p-2 text-[#c95c7a] hover:bg-[#fde8ef] rounded-full transition-colors" aria-label="View cart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span data-cart-count class="hidden absolute -top-0.5 -right-0.5 w-5 h-5 bg-[#c95c7a] text-white text-xs rounded-full flex items-center justify-center">0</span>
+      </button>
+
+      <button onclick="goToAuth()" class="hidden md:inline-flex items-center gap-1.5 px-5 py-2 bg-[#c95c7a] text-white rounded-full text-sm font-semibold hover:bg-[#b54d6a] hover:-translate-y-0.5 transition-all shadow-lg shadow-[#c95c7a]/20">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Sign In
+      </button>
+
+      <button class="md:hidden text-[#c95c7a] text-2xl p-2" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-[#fff8f9] border-t border-[#f9c4d4] px-6 py-4 flex flex-col gap-4">
+    <a href="index.html" class="text-left text-sm font-medium py-1 text-[#c95c7a]">Home</a>
+    <a href="BrowseCakes.html" class="text-left text-sm font-medium py-1 text-[#6b4352]">Browse Cakes</a>
+    <a href="CustomizeCake.html" class="text-left text-sm font-medium py-1 text-[#6b4352]">Customize</a>
+    <button onclick="goToAuth()" class="text-left text-sm text-[#c95c7a] font-semibold py-1">Sign In / Register</button>
+  </div>
+</nav>
+<!-- ===================== /Navbar component ===================== -->
+
+<main>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-[#fde8ef] via-[#fef0f4] to-[#fff8f9]">
+    <div class="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12">
+      <div class="flex-1 max-w-lg text-center md:text-left">
+        <p class="text-xs font-semibold tracking-[3px] uppercase text-[#e8839f] mb-3">Handcrafted with love</p>
+        <h1 class="font-display font-bold leading-none text-[clamp(64px,10vw,110px)] text-[#2d1a20] mb-2">Dolci</h1>
+        <p class="font-display italic text-[clamp(12px,2vw,16px)] text-[#e8839f] mb-10">Home-based | Handmade | Heart-made</p>
+        <div class="flex gap-3 justify-center md:justify-start flex-wrap">
+          <a href="BrowseCakes.html" class="px-7 py-3 rounded-full bg-[#c95c7a] text-white text-sm font-medium hover:bg-[#b54d6a] hover:-translate-y-0.5 transition-all shadow-lg shadow-[#c95c7a]/20">Explore Menu</a>
+          <a href="#about" class="px-7 py-3 rounded-full border-2 border-[#c95c7a] text-[#c95c7a] text-sm font-medium hover:bg-[#fde8ef] hover:-translate-y-0.5 transition-all">Our Story</a>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-center">
+        <div class="blob w-72 h-72 md:w-96 md:h-96 overflow-hidden bg-[#f9c4d4] shadow-2xl">
+          <img src="images/dolcicakespart2.jpg" alt="Dolci cakes" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sweetest Picks -->
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="font-display text-3xl md:text-4xl text-center text-[#2d1a20] mb-6">Our Sweetest Picks</h2>
+    <p class="text-center text-sm text-[#6b4352] max-w-2xl mx-auto mb-8">Swipe through our favorite deserts in a sweeter, more playful way.</p>
+
+    <div class="relative">
+      <button type="button" onclick="scrollPicks('left')" aria-label="Scroll left" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 rounded-full bg-white/90 text-[#c95c7a] shadow-lg p-3 opacity-80 hover:opacity-100 transition-opacity focus:outline-none focus:ring-2 focus:ring-[#f9c4d4]">‹</button>
+      <button type="button" onclick="scrollPicks('right')" aria-label="Scroll right" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 rounded-full bg-white/90 text-[#c95c7a] shadow-lg p-3 opacity-80 hover:opacity-100 transition-opacity focus:outline-none focus:ring-2 focus:ring-[#f9c4d4]">›</button>
+
+      <div id="picks-slider" class="fade-in flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth hide-scrollbar">
+        <div class="min-w-[280px] flex-shrink-0 snap-start relative bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#f9c4d4]/30 transition-all duration-300">
+          <img src="images/cheesecake.jpg" alt="Cheesecake" class="w-full h-44 object-cover" />
+          <div class="p-4 pb-5">
+            <h3 class="font-display text-base font-semibold text-[#2d1a20] mb-1">Cheesecake</h3>
+            <p class="text-xs text-[#b07a8e] mb-3">Creamy cheesecake topped with sweet blueberries.</p>
+            <span class="text-sm font-semibold text-[#c95c7a]">₱475</span>
+          </div>
+        </div>
+        <div class="min-w-[280px] flex-shrink-0 snap-start relative bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#f9c4d4]/30 transition-all duration-300 border-2 border-[#f9c4d4]">
+          <span class="absolute top-3 right-3 z-10 bg-[#c95c7a] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wide">Bestseller</span>
+          <img src="images/cake2.jpg" alt="Bento Cakes" class="w-full h-44 object-cover" />
+          <div class="p-4 pb-5">
+            <h3 class="font-display text-base font-semibold text-[#2d1a20] mb-1">Bento Cakes</h3>
+            <p class="text-xs text-[#b07a8e] mb-3">An adorable, personal-sized mini cake</p>
+            <span class="text-sm font-semibold text-[#c95c7a]">₱400</span>
+          </div>
+        </div>
+        <div class="min-w-[280px] flex-shrink-0 snap-start relative bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#f9c4d4]/30 transition-all duration-300">
+          <img src="images/crinckles.jpg" alt="Crinkles" class="w-full h-44 object-cover" />
+          <div class="p-4 pb-5">
+            <h3 class="font-display text-base font-semibold text-[#2d1a20] mb-1">Crinkles</h3>
+            <p class="text-xs text-[#b07a8e] mb-3">Soft, fudgy cookies with a crackled sugar coating.</p>
+            <span class="text-sm font-semibold text-[#c95c7a]">₱150</span>
+          </div>
+        </div>
+        <div class="min-w-[280px] flex-shrink-0 snap-start relative bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#f9c4d4]/30 transition-all duration-300">
+          <img src="images/brownies.jpg" alt="Brownies" class="w-full h-44 object-cover" />
+          <div class="p-4 pb-5">
+            <h3 class="font-display text-base font-semibold text-[#2d1a20] mb-1">Brownies</h3>
+            <p class="text-xs text-[#b07a8e] mb-3">Decadent, chocolatey brownies with a fudgy center.</p>
+            <span class="text-sm font-semibold text-[#c95c7a]">₱180</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="bg-[#fde8ef] py-20">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-14">
+      <div class="fade-in flex-1 relative max-w-md">
+        <img src="images/yummy.jpg" alt="Baker at work" class="rounded-[2.5rem] w-full h-[420px] object-cover shadow-xl" />
+        <div class="dot-pattern absolute -bottom-5 -right-5 w-28 h-28 rounded-xl opacity-50 -z-10"></div>
+      </div>
+      <div class="fade-in flex-1 max-w-md">
+        <span class="text-[11px] font-bold tracking-[2.5px] uppercase text-[#c95c7a] mb-3 block">About Dolci</span>
+        <h2 class="font-display text-3xl md:text-4xl leading-snug text-[#2d1a20] mb-5">Made from scratch, <em>always</em></h2>
+        <p class="text-[#6b4352] text-sm leading-relaxed mb-8">
+          Founded in a small kitchen by friends who love baking and beautiful moments, Dolci
+          creates cakes that are as delightful to look at as they are to taste. Every order is
+          handmade with fresh ingredients, playful flavor combinations, and the kind of care
+          that turns celebrations into sweet memories.
+        </p>
+        <div class="flex gap-8 mb-8">
+          <div class="fade-in"><strong class="font-display text-3xl text-[#c95c7a] block">5000+</strong><span class="text-xs text-[#b07a8e]">Years baking</span></div>
+          <div class="fade-in"><strong class="font-display text-3xl text-[#c95c7a] block">202020K+</strong><span class="text-xs text-[#b07a8e]">Happy customers</span></div>
+          <div class="fade-in"><strong class="font-display text-3xl text-[#c95c7a] block">50000+</strong><span class="text-xs text-[#b07a8e]">Menu items</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- From Our Kitchen -->
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="font-display text-2xl md:text-3xl text-[#2d1a20] mb-8">From Our Kitchen</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="fade-in bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 md:col-span-2">
+        <img src="images/dolcicakes.jpg" alt="Handmade cakes from Mandaue City" class="w-full h-56 object-cover" />
+        <div class="p-6">
+          <span class="inline-block bg-[#fde8ef] text-[#c95c7a] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Backstory</span>
+          <h3 class="font-display text-lg text-[#2d1a20] mb-2">Handmade cakes from Mandaue City</h3>
+          <p class="text-xs text-[#b07a8e] leading-relaxed mb-4">Every Dolci cake is baked from scratch using fresh ingredients, layered with soft sponge and rich frosting, and finished with delicate handcrafted details.</p>
+          <a href="#" class="text-xs font-semibold text-[#c95c7a] hover:underline">Learn more →</a>
+        </div>
+      </div>
+      <div class="fade-in bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+        <img src="images/cake.jpg" alt="Local favorites and custom orders" class="w-full h-56 object-cover" />
+        <div class="p-6">
+          <span class="inline-block bg-[#fde8ef] text-[#c95c7a] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Favorites</span>
+          <h3 class="font-display text-lg text-[#2d1a20] mb-2">Local favorites and custom orders</h3>
+          <p class="text-xs text-[#b07a8e] leading-relaxed mb-4">From celebration cakes to cute bento treats, Dolci serves sweet moments for birthdays, graduations, and everyday indulgence.</p>
+          <a href="#" class="text-xs font-semibold text-[#c95c7a] hover:underline">See our menu →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Baking Guides -->
+  <section class="bg-[#fff8f9] py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="font-display text-2xl md:text-3xl text-[#2d1a20] mb-8">Baking Guides</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="fade-in bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <img src="images/cake3.jpg" alt="Cake care 101" class="w-full h-40 object-cover" />
+          <div class="p-5">
+            <span class="inline-block bg-[#fde8ef] text-[#c95c7a] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Guide</span>
+            <h3 class="font-display text-base text-[#2d1a20] mb-1">Cake care 101</h3>
+            <p class="text-xs text-[#b07a8e] leading-relaxed mb-4">Keep your cake fresh by storing it in a cool, dry place and enjoying it within 24 hours. Avoid direct sunlight for the best texture and flavor.</p>
+            <div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-[#f9c4d4]"></div><span class="text-xs text-[#b07a8e]">Dolci Team</span></div>
+          </div>
+        </div>
+        <div class="fade-in bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <img src="images/pops.jpg" alt="Choosing the perfect flavor" class="w-full h-40 object-cover" />
+          <div class="p-5">
+            <span class="inline-block bg-[#fde8ef] text-[#c95c7a] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Guide</span>
+            <h3 class="font-display text-base text-[#2d1a20] mb-1">Choosing the perfect flavor</h3>
+            <p class="text-xs text-[#b07a8e] leading-relaxed mb-4">Pair your cake with fillings and frosting that match the celebration: classic chocolate, bright strawberry, creamy cheesecake, or rich ube are all favorites.</p>
+            <div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-[#f5c4b0]"></div><span class="text-xs text-[#b07a8e]">Dolci Bakers</span></div>
+          </div>
+        </div>
+        <div class="fade-in bg-white rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <img src="images/cupcake.jpg" alt="Ordering made easy" class="w-full h-40 object-cover" />
+          <div class="p-5">
+            <span class="inline-block bg-[#fde8ef] text-[#c95c7a] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Guide</span>
+            <h3 class="font-display text-base text-[#2d1a20] mb-1">Ordering made easy</h3>
+            <p class="text-xs text-[#b07a8e] leading-relaxed mb-4">Send us your cake design, choose your size, and let us handle the rest. Pick-up and delivery options are available across Mandaue City.</p>
+            <div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-[#c4d8f5]"></div><span class="text-xs text-[#b07a8e]">Order Support</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-[#fff8f9] py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="bg-white rounded-[2rem] border border-[#fde8ef] shadow-xl p-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+          <div>
+            <p class="text-xs font-semibold tracking-[3px] uppercase text-[#e8839f] mb-3">Customer love</p>
+            <h2 class="font-display text-3xl md:text-4xl text-[#2d1a20]">What customers love</h2>
+          </div>
+          <p class="max-w-xl text-sm text-[#6b4352]">A few sweet words from regulars who come back for the cake, the cozy vibe, and the extra care.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="fade-in bg-white rounded-3xl p-6 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#fde8ef] flex items-center justify-center text-[#c95c7a] font-bold">IR</div>
+              <div><p class="font-semibold text-[#2d1a20]">Iesha R.</p><p class="text-xs text-[#b07a8e]">Regular customer</p></div>
+            </div>
+            <p class="text-sm text-[#6b4352] leading-relaxed mb-5">"SOOOOOOOOO GOOOOD"</p>
+            <div class="flex items-center gap-1 text-[#c95c7a] text-xs"><span>★★★★★</span><span class="text-[#b07a8e]">5.0</span></div>
+          </div>
+          <div class="fade-in bg-white rounded-3xl p-6 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#f5c4b0] flex items-center justify-center text-[#c95c7a] font-bold">LT</div>
+              <div><p class="font-semibold text-[#2d1a20]">Lance T.</p><p class="text-xs text-[#b07a8e]">LUVET</p></div>
+            </div>
+            <p class="text-sm text-[#6b4352] leading-relaxed mb-5">"LUVET"</p>
+            <div class="flex items-center gap-1 text-[#c95c7a] text-xs"><span>★★★★★</span><span class="text-[#b07a8e]">5.0</span></div>
+          </div>
+          <div class="fade-in bg-white rounded-3xl p-6 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#c4d8f5] flex items-center justify-center text-[#c95c7a] font-bold">MM</div>
+              <div><p class="font-semibold text-[#2d1a20]">Minh M.</p><p class="text-xs text-[#b07a8e]">Weekly visitor</p></div>
+            </div>
+            <p class="text-sm text-[#6b4352] leading-relaxed mb-5">"CHUYAA"</p>
+            <div class="flex items-center gap-1 text-[#c95c7a] text-xs"><span>★★★★★</span><span class="text-[#b07a8e]">5.0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="bg-gradient-to-r from-[#e8839f] to-[#c95c7a] text-white text-center py-20 px-6">
+    <h2 class="font-display text-3xl md:text-4xl mb-3">Get sweet updates 🎂</h2>
+    <p class="text-white/80 text-sm mb-8">New flavors, seasonal specials, and secret recipes — straight to your inbox.</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <input id="newsletter-email" type="email" placeholder="Your email address" class="px-6 py-3 rounded-full text-sm text-[#2d1a20] outline-none w-72" />
+      <button id="subscribe-btn" onclick="handleSubscribe()" class="px-7 py-3 rounded-full bg-[#2d1a20] text-white text-sm font-medium hover:bg-black/80 transition-colors disabled:opacity-80">Subscribe</button>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== Footer component ===================== -->
+<footer id="contact" class="bg-[#2b171d] text-white/70 pt-14 pb-0">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-12 pb-12 border-b border-white/10">
+    <div class="flex-1">
+      <h3 class="font-display text-xl text-white mb-2">🎀 Dolci</h3>
+      <p class="text-xs opacity-60">A taste of sweet.</p>
+    </div>
+    <div class="flex gap-14 flex-wrap">
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Shop</h4>
+        <ul class="space-y-2">
+          <li><a href="BrowseCakes.html" class="text-xs font-normal text-white/70 hover:text-pink-300 transition-colors">Cakes</a></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Cookies</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Gift Boxes</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Info</h4>
+        <ul class="space-y-2">
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">About Us</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Blog</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">FAQ</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-white mb-4">Connect</h4>
+        <ul class="space-y-2">
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Instagram</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">Facebook</button></li>
+          <li><button class="text-xs font-normal bg-transparent border-none p-0 text-left text-white/70 hover:text-pink-300 transition-colors">TikTok</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-6 py-5 text-center text-xs opacity-40">
+    © 2026 Dolci. Made with 🍓 and lots of butter.
+  </div>
+</footer>
+<!-- ===================== /Footer component ===================== -->
+
+<script src="app.js"></script>
+<script>
+  // ---- Navigation helpers (defined here so the navbar works even if   ----
+  // ---- app.js doesn't define them, or loads them in a different order ----
+  function goToAuth() {
+    window.location.href = 'AuthPage.html';
+  }
+
+  function viewCart() {
+    window.location.href = 'OrderPage.html';
+  }
+
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) menu.classList.toggle('hidden');
+  }
+
+  function scrollPicks(direction) {
+    const slider = document.getElementById('picks-slider');
+    if (!slider) return;
+    const amount = slider.clientWidth * 0.8;
+    slider.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
+  }
+
+  function handleSubscribe() {
+    const emailInput = document.getElementById('newsletter-email');
+    const btn = document.getElementById('subscribe-btn');
+    if (!emailInput.value.trim()) return;
+    emailInput.value = '';
+    btn.textContent = 'Subscribed! 🎉';
+    btn.disabled = true;
+    setTimeout(() => { btn.textContent = 'Subscribe'; btn.disabled = false; }, 3000);
+  }
+</script>
+</body>
+</html>
